@@ -1,20 +1,33 @@
+//TOD): 
+// - fix form so that hitting enter doenst reload page
+// form validate so that state is valid state code
+
 $(document).ready(function () {
   var eventsOut = [];
   var errMsgDisplay = document.querySelector("#err-msg");
 
   $("#userInput").on("click", function () {
     event.preventDefault();
-    var zipcode = $("#zip").val().trim();
-    ticketMasterFetch(zipcode);
+    var zip = $("#zip").val().trim();
+    var city = $("#city").val().trim();
+    var state = $("#state").val().trim();
+    // have to pass in all three even if no value for any of them!!!
+    ticketMasterFetch(zip, city, state);
   });
 
   function err(string) {
     errMsgDisplay.textContent = string;
   }
 
-  function ticketMasterFetch(zip) {
-    var url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=JK1bYROCje1BYtx3gGe1wVE6Z0kutcdA&postalCode="
-    url += zip;
+  
+
+  
+
+  function ticketMasterFetch(zip, city, state) {
+    var url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=JK1bYROCje1BYtx3gGe1wVE6Z0kutcdA";
+    if (zip) url += "&postalCode=" + zip;
+    if (city) url += "&city=" + city;
+    if (state) url += "&state=" + state;
     var req = new XMLHttpRequest();
     req.onload = () => {
       var json = JSON.parse(req.responseText);
@@ -61,7 +74,6 @@ $(document).ready(function () {
         finally {
           console.log(i);
         }
-        
       }
       console.log(eventsOut);
       yelp(city);
