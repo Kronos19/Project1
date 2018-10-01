@@ -4,9 +4,9 @@
 
 $(document).ready(function () {
   var eventsOut = [];
+  let arrayRest = [];
   var errMsgDisplay = document.querySelector("#err-msg");
-
-  $("#userInput").on("click", function () {
+  $("#userInput").on("click", function (event) {
     event.preventDefault();
     var zip = $("#zip").val().trim();
     var city = $("#city").val().trim();
@@ -66,16 +66,16 @@ $(document).ready(function () {
             state
           };
           eventsOut.push(eventObj);
-        }
-        catch(er) {
+        } catch (er) {
           console.log("Error with event: " + i);
           console.log(er.message);
-        }
-        finally {
+        } finally {
           console.log(i);
         }
+
       }
-      console.log(eventsOut);
+      // console.log(eventsOut);
+      displayEvent(eventsOut);
       yelp(city);
     }
     req.open("GET", url, true);
@@ -108,44 +108,67 @@ $(document).ready(function () {
         'Authorization': "Bearer -fQflxBoof3K42D5NlSTEm1zb2Q4pYrNwqMIXOqoLAc2vw9W5KExghydPZmUeCQWOPFm5mRoQ9dYYIJHu1lz0_eTCuD0Aux8tZaVhM3XvD8x22mQaodNSGx5DVSuW3Yx"
       }
     }).then(function (response) {
-      console.log(response);
+      // console.log(response);
       let businessArr = response.businesses;
 
-      let arrayRest = [];
+      arrayRest = [];
 
       //loop the array from yelp, take the properties needed and add to a new object, and loop them all into a new array
       for (let i = 0; i < businessArr.length; i++) {
         let businessObject = businessArr[i];
         let indivRest = {};
-        indivRest["alias"] = businessObject.alias;
+        indivRest["name"] = businessObject.name;
         indivRest["rating"] = businessObject.rating;
         indivRest["url"] = businessObject.url;
         arrayRest.push(indivRest);
       };
       console.log(arrayRest);
-
+      restaurantButton(arrayRest);
     });
 
   };
 
 
-  function displayEvent(eventsOut) {
+  function displayEvent(array) {
+    console.log(array)
+    for (i = 0; i < array.length; i++) {
 
-    for (i = 0; i < eventsOut.length; i++) {
+      var name = array[i].name;
+      var startdate = array[i].startDate;
+      var genre = array[i].genre;
 
-      var city = eventsOut.city;
+      // console.log(name)
 
       var eventDiv = $("<div>");
       eventDiv.addClass("event");
-      eventDiv.text("<h1>" + city + "<h1>");
 
-      $("#info-div").append(eventDiv);
+      var p = $("<p>").text("Name: " + name);
+      var g = $("<p>").text("Genre: " + genre);
+      var s = $("<p>").text("Start Date: " + startdate);
+      eventDiv.append(p, g, s);
+
+      $("#events-div").append(eventDiv);
 
     }
 
   };
 
-  displayEvent(eventsOut);
+  function restaurantButton(arrayRest) {
+    $("#button-view").empty();
+    for (var i = 0; i < arrayRest.length; i++) {
+      var newbutton = $("<button>");
+      newbutton.addClass("btn btn-md btn-danger btn-block");
+      newbutton.text(arrayRest[i].name);
+      newbutton.append(arrayRest[i]);
+      $("#button-view").append(newbutton);
+    }
+  }
 
 
+  function clear() {
+    $("#events-div").empty();
+    $("#zip").val("");
+  }
+
+  $("#clearInput").on("click", clear);
 });
