@@ -13,15 +13,15 @@ $(document).ready(function () {
   //=====================================================
   var eventsOut = [];
 
-  function ticketMasterFetch(zip) {
+  function ticketMasterFetch(zipcode) {
     var url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=JK1bYROCje1BYtx3gGe1wVE6Z0kutcdA&postalCode="
-    url += zip;
+    url += zipcode;
     var req = new XMLHttpRequest();
     req.onload = () => {
       var json = JSON.parse(req.responseText);
       var events = json._embedded.events;
       for (var i = 0; i < events.length; i++) {
-        console.log(events[i]);
+        //console.log(events[i]);
         var name = events[i].name;
         var segment = events[i].classifications[0].segment.name;
         var genre = events[i].classifications[0].genre.name;
@@ -51,6 +51,8 @@ $(document).ready(function () {
         };
         eventsOut.push(eventObj);
       }
+      console.log(eventsOut);
+      displayEvent(eventsOut);
       yelp(city);
     }
     req.open("GET", url, true);
@@ -105,23 +107,39 @@ $(document).ready(function () {
 
   ticketMasterFetch("90012");
 
-  function displayEvent(eventsOut) {
+  function displayEvent(array) {
+    console.log(array)
+    for (i = 0; i < array.length; i++) {
 
-    for (i = 0; i < eventsOut.length; i++) {
+      var name = array[i].name;
+      var startdate = array[i].startDate;
+      var genre = array[i].genre;
 
-      var city = eventsOut.city;
+      console.log(name)
 
       var eventDiv = $("<div>");
       eventDiv.addClass("event");
-      eventDiv.text("<h1>" + city + "<h1>");
 
-      $("#info-div").append(eventDiv);
+      var p = $("<p>").text("Name: " + name);
+      var g = $("<p>").text("Genre: " + genre);
+      var s = $("<p>").text("Start Date: " + startdate);
+      eventDiv.append(p, g, s)
+
+      $("#events-div").append(eventDiv);
 
     }
 
   };
 
-  displayEvent(eventsOut);
+
+  function clear() {
+    $("#events-div").empty();
+    $("#zip").val("");
+  }
+
+  $("#clearInput").on("click", clear);
+
+
 
 
 });
