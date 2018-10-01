@@ -1,17 +1,16 @@
 $(document).ready(function () {
+  var eventsOut = [];
+  var errMsgDisplay = document.querySelector("#err-msg");
 
   $("#userInput").on("click", function () {
-
     event.preventDefault();
     var zipcode = $("#zip").val().trim();
-    console.log(zipcode);
-
+    ticketMasterFetch(zipcode);
   });
 
-  //=====================================================
-  //Mike Ryan's Code
-  //=====================================================
-  var eventsOut = [];
+  function err(string) {
+    errMsgDisplay.textContent = string;
+  }
 
   function ticketMasterFetch(zip) {
     var url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=JK1bYROCje1BYtx3gGe1wVE6Z0kutcdA&postalCode="
@@ -19,38 +18,52 @@ $(document).ready(function () {
     var req = new XMLHttpRequest();
     req.onload = () => {
       var json = JSON.parse(req.responseText);
+      if (!json._embedded) {
+        err("try a different zip");
+        return false;
+      }
       var events = json._embedded.events;
       for (var i = 0; i < events.length; i++) {
-        console.log(events[i]);
-        var name = events[i].name;
-        var segment = events[i].classifications[0].segment.name;
-        var genre = events[i].classifications[0].genre.name;
-        var venue = events[i]._embedded.venues[0].name;
-        var startDate = events[i].dates.start.localDate;
-        var startTime = events[i].dates.start.localTime;
-        var imageURL = events[i].images[1].url;
-        var ticketURL = events[i].url;
-        var coords = {
-          latitude: events[i]._embedded.venues[0].location.latitude,
-          longitude: events[i]._embedded.venues[0].location.longitude
+        try {
+          var name = events[i].name;
+          var segment = events[i].classifications[0].segment.name;
+          var genre = events[i].classifications[0].genre.name;
+          var venue = events[i]._embedded.venues[0].name;
+          var startDate = events[i].dates.start.localDate;
+          var startTime = events[i].dates.start.localTime;
+          var imageURL = events[i].images[1].url;
+          var ticketURL = events[i].url;
+          var coords = {
+            latitude: events[i]._embedded.venues[0].location.latitude,
+            longitude: events[i]._embedded.venues[0].location.longitude
+          }
+          var city = events[i]._embedded.venues[0].city.name;
+          var state = events[i]._embedded.venues[0].state.stateCode;
+          var eventObj = {
+            name,
+            segment,
+            genre,
+            venue,
+            startDate,
+            startTime,
+            imageURL,
+            ticketURL,
+            coords,
+            city,
+            state
+          };
+          eventsOut.push(eventObj);
         }
-        var city = events[i]._embedded.venues[0].city.name;
-        var state = events[i]._embedded.venues[0].state.stateCode;
-        var eventObj = {
-          name,
-          segment,
-          genre,
-          venue,
-          startDate,
-          startTime,
-          imageURL,
-          ticketURL,
-          coords,
-          city,
-          state
-        };
-        eventsOut.push(eventObj);
+        catch(er) {
+          console.log("Error with event: " + i);
+          console.log(er.message);
+        }
+        finally {
+          console.log(i);
+        }
+        
       }
+      console.log(eventsOut);
       yelp(city);
     }
     req.open("GET", url, true);
@@ -103,7 +116,6 @@ $(document).ready(function () {
 
   };
 
-  ticketMasterFetch("90012");
 
   function displayEvent(eventsOut) {
 
