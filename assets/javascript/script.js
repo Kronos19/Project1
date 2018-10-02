@@ -81,7 +81,7 @@ $(document).ready(function () {
   }
 
   function yelp(arg) {
-    
+
     arg = arg || console.log("no restaurant");
 
     //query api
