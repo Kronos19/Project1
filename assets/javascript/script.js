@@ -128,15 +128,19 @@ $(document).ready(function () {
       var startdate = array[i].startDate;
       var genre = array[i].genre;
 
-      // console.log(name)
-
       var eventDiv = $("<div>");
       eventDiv.addClass("event");
 
       var p = $("<p>").text("Name: " + name);
       var g = $("<p>").text("Genre: " + genre);
       var s = $("<p>").text("Start Date: " + startdate);
-      eventDiv.append(p, g, s);
+      var eventbutton = $("<a>");
+      eventbutton.addClass("btn btn-md btn-danger btn-block");
+      eventbutton.text("GET TICKETS!");
+      eventbutton.attr("href", array[i].ticketURL);
+      eventbutton.attr("target", "_blank");
+      eventbutton.attr("id", "eventbutton")
+      eventDiv.append(p, g, s, eventbutton);
 
       eventsDiv.append(eventDiv);
 
@@ -157,22 +161,11 @@ $(document).ready(function () {
     }
   }
 
-  function eventLinkButton(array) {
-    for (var i = 0; i < array.length; i++) {
-      var newbutton = $("<a>");
-      newbutton.addClass("btn btn-md btn-danger btn-block");
-      newbutton.text("GET TICKETS!");
-      newbutton.attr("href", array[i].ticketURL);
-      newbutton.attr("target", "_blank");
-      newbutton.attr("id", "button")
-      $("#events-div").append(newbutton);
-    }
-  }
-
-
   function clear() {
     $("#events-div").empty();
     $("#zip").val("");
+    $("#city").val("");
+    $("#state").val("");
   }
 
   $("#clearInput").on("click", clear);
