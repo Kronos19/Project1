@@ -79,6 +79,12 @@ body {
   cursor: pointer;
 }
 
+#button {
+  height: auto;
+  line-height: 1.5em;
+
+}
+
 @media only screen and (max-width: 768px) {
 
   body {

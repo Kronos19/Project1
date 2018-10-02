@@ -147,12 +147,14 @@ window.onclick = function(event) {
     for (var i = 0; i < arrayRest.length; i++) {
       var newbutton = $("<button>");
       newbutton.addClass("btn btn-md btn-danger btn-block");
-      newbutton.text(arrayRest[i].name);
+      var string = (arrayRest[i].name + "<br/>Rating: " + arrayRest[i].rating);
+      newbutton.html(string);
       newbutton.attr("href", arrayRest[i].url);
       newbutton.attr("target", "_blank");
       newbutton.attr("id", "button")
       $("#button-view").append(newbutton);
     }
+    
   }
 
   function clear() {
