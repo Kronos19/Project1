@@ -80,16 +80,9 @@ $(document).ready(function () {
 
   }
 
-  function yelp(arg, arg2, arg3, arg4) {
-    //make arguements optional
-    //zip
-    arg = arg || console.log("no zip");
-    //location
-    arg2 = arg2 || console.log("no location");
-    //lat
-    arg3 = ((arg3 || console.log("no lat")) && (arg4 || console.log("no lon")));
-    //lon
-    arg4 = ((arg4 || console.log("no lon")) && (arg3 || console.log("no lat")));
+  function yelp(arg) {
+    
+    arg = arg || console.log("no restaurant");
 
     //query api
     let queryURL = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=" + arg + "&radius=8046&limit=10";
