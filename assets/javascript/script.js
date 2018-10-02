@@ -31,6 +31,7 @@ window.onclick = function(event) {
     if (state) url += "&state=" + state;
     var req = new XMLHttpRequest();
     req.onload = () => {
+      eventsOut = [];
       var json = JSON.parse(req.responseText);
       if (!json._embedded) {
         modal.style.display = "block";
@@ -77,6 +78,11 @@ window.onclick = function(event) {
       }
       // console.log(eventsOut);
       displayEvent(eventsOut);
+      eventLinkButton(eventsOut);
+      var loadingAnim = document.createElement("div");
+      loadingAnim.classList.add("lds-hourglass");
+      loadingAnim.id = "loading-animation";
+      document.querySelector("#restaurants").appendChild(loadingAnim)
       yelp(city);
     }
     req.open("GET", url, true);
@@ -109,6 +115,8 @@ window.onclick = function(event) {
         arrayRest.push(indivRest);
       };
       console.log(arrayRest);
+      var loadingAnim = document.querySelector("#loading-animation");
+      document.querySelector("#restaurants").removeChild(loadingAnim)
       restaurantButton(arrayRest);
     });
 
@@ -116,6 +124,10 @@ window.onclick = function(event) {
 
 
   function displayEvent(array) {
+    console.log(array)
+    var eventsDiv = $("#events-div");
+    eventsDiv.empty();
+    
     for (i = 0; i < array.length; i++) {
 
       var name = array[i].name;
@@ -136,7 +148,7 @@ window.onclick = function(event) {
       eventbutton.attr("id", "eventbutton")
       eventDiv.append(p, g, s, eventbutton);
 
-      $("#events-div").append(eventDiv);
+      eventsDiv.append(eventDiv);
 
     }
 
