@@ -11,17 +11,13 @@ $(document).ready(function () {
     var zip = $("#zip").val().trim();
     var city = $("#city").val().trim();
     var state = $("#state").val().trim();
-    // have to pass in all three even if no value for any of them!!!
+    
     ticketMasterFetch(zip, city, state);
   });
 
   function err(string) {
     errMsgDisplay.textContent = string;
   }
-
-  
-
-  
 
   function ticketMasterFetch(zip, city, state) {
     var url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=JK1bYROCje1BYtx3gGe1wVE6Z0kutcdA";
