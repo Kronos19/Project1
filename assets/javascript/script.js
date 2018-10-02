@@ -71,6 +71,7 @@ $(document).ready(function () {
       }
       // console.log(eventsOut);
       displayEvent(eventsOut);
+      eventLinkButton(eventsOut);
       yelp(city);
     }
     req.open("GET", url, true);
@@ -78,16 +79,9 @@ $(document).ready(function () {
 
   }
 
-  function yelp(arg, arg2, arg3, arg4) {
-    //make arguements optional
-    //zip
-    arg = arg || console.log("no zip");
-    //location
-    arg2 = arg2 || console.log("no location");
-    //lat
-    arg3 = ((arg3 || console.log("no lat")) && (arg4 || console.log("no lon")));
-    //lon
-    arg4 = ((arg4 || console.log("no lon")) && (arg3 || console.log("no lat")));
+  function yelp(arg) {
+
+    arg = arg || console.log("no restaurant");
 
     //query api
     let queryURL = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=" + arg + "&radius=8046&limit=10";
@@ -154,8 +148,22 @@ $(document).ready(function () {
       var newbutton = $("<button>");
       newbutton.addClass("btn btn-md btn-danger btn-block");
       newbutton.text(arrayRest[i].name);
-      newbutton.append(arrayRest[i]);
+      newbutton.attr("href", arrayRest[i].url);
+      newbutton.attr("target", "_blank");
+      newbutton.attr("id", "button")
       $("#button-view").append(newbutton);
+    }
+  }
+
+  function eventLinkButton(array) {
+    for (var i = 0; i < array.length; i++) {
+      var newbutton = $("<a>");
+      newbutton.addClass("btn btn-md btn-danger btn-block");
+      newbutton.text("GET TICKETS!");
+      newbutton.attr("href", array[i].ticketURL);
+      newbutton.attr("target", "_blank");
+      newbutton.attr("id", "button")
+      $("#events-div").append(newbutton);
     }
   }
 
