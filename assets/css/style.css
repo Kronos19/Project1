@@ -29,6 +29,13 @@ body {
   background-color: #105B63;
 }
 
+.event {
+  font-family:'Abril Fatface', cursive;; 
+  border: 20px; 
+  padding: 20px;
+  text-align: left
+}
+
 @media only screen and (max-width: 768px) {
 
 body {
@@ -67,4 +74,6 @@ body {
   border: 20px; 
   padding: 20px;
   text-align: left
+}
+
 }
