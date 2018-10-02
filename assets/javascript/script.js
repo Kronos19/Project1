@@ -115,6 +115,7 @@ $(document).ready(function () {
       var name = array[i].name;
       var startdate = array[i].startDate;
       var genre = array[i].genre;
+      var pic = array[i].imageURL
 
       var eventDiv = $("<div>");
       eventDiv.addClass("event");
@@ -122,12 +123,14 @@ $(document).ready(function () {
       var p = $("<p>").text("Name: " + name);
       var g = $("<p>").text("Genre: " + genre);
       var s = $("<p>").text("Start Date: " + startdate);
-      var eventbutton = $("<a>");
+      var eventbutton = $("<a>")
       eventbutton.addClass("btn btn-md btn-danger btn-block");
       eventbutton.text("GET TICKETS!");
       eventbutton.attr("href", array[i].ticketURL);
       eventbutton.attr("target", "_blank");
       eventbutton.attr("id", "eventbutton")
+
+
       eventDiv.append(p, g, s, eventbutton);
 
       $("#events-div").append(eventDiv);
@@ -151,6 +154,7 @@ $(document).ready(function () {
 
   function clear() {
     $("#events-div").empty();
+    $("#button-view").empty();
     $("#zip").val("");
     $("#city").val("");
     $("#state").val("");
