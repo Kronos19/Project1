@@ -62,4 +62,9 @@ body {
   text-shadow: 1px 1px bisque
 }
 
+.event {
+  font-family:'Abril Fatface', cursive;; 
+  border: 20px; 
+  padding: 20px;
+  text-align: left
 }
