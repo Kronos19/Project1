@@ -72,7 +72,6 @@ $(document).ready(function () {
 
       }
       displayEvent(eventsOut);
-      eventLinkButton(eventsOut);
       yelp(city);
     }
     req.open("GET", url, true);
