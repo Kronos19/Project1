@@ -1,20 +1,33 @@
+//TOD): 
+// - fix form so that hitting enter doenst reload page
+// form validate so that state is valid state code
+
 $(document).ready(function () {
   var eventsOut = [];
+  let arrayRest = [];
   var errMsgDisplay = document.querySelector("#err-msg");
-
-  $("#userInput").on("click", function () {
+  $("#userInput").on("click", function (event) {
     event.preventDefault();
-    var zipcode = $("#zip").val().trim();
-    ticketMasterFetch(zipcode);
+    var zip = $("#zip").val().trim();
+    var city = $("#city").val().trim();
+    var state = $("#state").val().trim();
+    // have to pass in all three even if no value for any of them!!!
+    ticketMasterFetch(zip, city, state);
   });
 
   function err(string) {
     errMsgDisplay.textContent = string;
   }
 
-  function ticketMasterFetch(zip) {
-    var url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=JK1bYROCje1BYtx3gGe1wVE6Z0kutcdA&postalCode="
-    url += zip;
+  
+
+  
+
+  function ticketMasterFetch(zip, city, state) {
+    var url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=JK1bYROCje1BYtx3gGe1wVE6Z0kutcdA";
+    if (zip) url += "&postalCode=" + zip;
+    if (city) url += "&city=" + city;
+    if (state) url += "&state=" + state;
     var req = new XMLHttpRequest();
     req.onload = () => {
       var json = JSON.parse(req.responseText);
@@ -53,17 +66,16 @@ $(document).ready(function () {
             state
           };
           eventsOut.push(eventObj);
-        }
-        catch(er) {
+        } catch (er) {
           console.log("Error with event: " + i);
           console.log(er.message);
-        }
-        finally {
+        } finally {
           console.log(i);
         }
-        
+
       }
-      console.log(eventsOut);
+      // console.log(eventsOut);
+      displayEvent(eventsOut);
       yelp(city);
     }
     req.open("GET", url, true);
@@ -71,16 +83,9 @@ $(document).ready(function () {
 
   }
 
-  function yelp(arg, arg2, arg3, arg4) {
-    //make arguements optional
-    //zip
-    arg = arg || console.log("no zip");
-    //location
-    arg2 = arg2 || console.log("no location");
-    //lat
-    arg3 = ((arg3 || console.log("no lat")) && (arg4 || console.log("no lon")));
-    //lon
-    arg4 = ((arg4 || console.log("no lon")) && (arg3 || console.log("no lat")));
+  function yelp(arg) {
+    
+    arg = arg || console.log("no restaurant");
 
     //query api
     let queryURL = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=" + arg + "&radius=8046&limit=10";
@@ -96,49 +101,67 @@ $(document).ready(function () {
         'Authorization': "Bearer -fQflxBoof3K42D5NlSTEm1zb2Q4pYrNwqMIXOqoLAc2vw9W5KExghydPZmUeCQWOPFm5mRoQ9dYYIJHu1lz0_eTCuD0Aux8tZaVhM3XvD8x22mQaodNSGx5DVSuW3Yx"
       }
     }).then(function (response) {
-      console.log(response);
+      // console.log(response);
       let businessArr = response.businesses;
 
-      let arrayRest = [];
+      arrayRest = [];
 
       //loop the array from yelp, take the properties needed and add to a new object, and loop them all into a new array
       for (let i = 0; i < businessArr.length; i++) {
         let businessObject = businessArr[i];
         let indivRest = {};
-        indivRest["alias"] = businessObject.alias;
+        indivRest["name"] = businessObject.name;
         indivRest["rating"] = businessObject.rating;
         indivRest["url"] = businessObject.url;
         arrayRest.push(indivRest);
       };
       console.log(arrayRest);
-
+      restaurantButton(arrayRest);
     });
 
   };
 
 
-  function displayEvent(eventsOut) {
+  function displayEvent(array) {
+    console.log(array)
+    for (i = 0; i < array.length; i++) {
 
-    for (i = 0; i < eventsOut.length; i++) {
+      var name = array[i].name;
+      var startdate = array[i].startDate;
+      var genre = array[i].genre;
 
-      var city = eventsOut.city;
+      // console.log(name)
 
       var eventDiv = $("<div>");
       eventDiv.addClass("event");
-      eventDiv.text("<h1>" + city + "<h1>");
 
-      $("#info-div").append(eventDiv);
+      var p = $("<p>").text("Name: " + name);
+      var g = $("<p>").text("Genre: " + genre);
+      var s = $("<p>").text("Start Date: " + startdate);
+      eventDiv.append(p, g, s);
+
+      $("#events-div").append(eventDiv);
 
     }
 
   };
 
-  displayEvent(eventsOut);
+  function restaurantButton(arrayRest) {
+    $("#button-view").empty();
+    for (var i = 0; i < arrayRest.length; i++) {
+      var newbutton = $("<button>");
+      newbutton.addClass("btn btn-md btn-danger btn-block");
+      newbutton.text(arrayRest[i].name);
+      newbutton.append(arrayRest[i]);
+      $("#button-view").append(newbutton);
+    }
+  }
 
 
+  function clear() {
+    $("#events-div").empty();
+    $("#zip").val("");
+  }
+
+  $("#clearInput").on("click", clear);
 });
-
-
-
-//add all of the checked zip codes for a user into an array that woul be saved with a reference to restauants and then bring them back from an earlier search in a new zip matches one in the array of previous
-//these can all be stored in a server as to keep space
