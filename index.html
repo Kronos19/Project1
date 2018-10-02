@@ -20,7 +20,17 @@
 
     <h1 class="display-4">Project 1</h1>
     <p class="lead">Search for Events and Restaurants All at Once</p>
-    <p id="err-msg"></p>
+  
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Try a different zip code</p>
+      </div>
+    
+    </div>
+    
     <hr class="my-4">
 
   </div>
@@ -29,13 +39,13 @@
   <div class="container-fluid">
     <div class="row">
       <!-- left hand column -->
-      <div class="col-12 col-sm-6 col-md-4 mb-4" class=left>
+      <div class="col-12 col-sm-6 col-md-4 mb-4">
         <div class="row">
           <div class="left-card">
             <h5 class="card-header bg-dark text-light">
               Search
             </h5>
-            <div class="card-body">
+            <div class="card-body card-color">
               <form>
                 Zip Code:<br>
                 <input type="text" id="zip" name="zipcode">
@@ -57,10 +67,12 @@
             <h5 class="card-header bg-dark text-light">
               Nearby Restaurants
             </h5>
-            <div class="card-body" id="restaurants">
+            <div class="card-body card-color" id="restaurants">
               
               <div id="button-view">
               </div>
+
+              <div id="rating-view"></div>
 
             </div>
           </div>
@@ -70,7 +82,7 @@
       <div class="col-12 col-sm-6 col-md-8 mb-4" class=right>
         <div class="right-card">
           <h5 class="card-header bg-dark text-light">
-            Event & Restaurant Info
+            Event Info
           </h5>
           <div class="card-body text-center">
             <div id="events-div">

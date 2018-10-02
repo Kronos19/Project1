@@ -6,7 +6,8 @@ $(document).ready(function () {
   
   var eventsOut = [];
   let arrayRest = [];
-  var errMsgDisplay = document.querySelector("#err-msg");
+  var modal = document.getElementById('myModal');
+  var span = document.getElementsByClassName("close")[0];
   $("#userInput").on("click", function (event) {
     event.preventDefault();
     var zip = $("#zip").val().trim();
@@ -15,9 +16,14 @@ $(document).ready(function () {
     ticketMasterFetch(zip, city, state);
   });
 
-  function err(string) {
-    errMsgDisplay.textContent = string;
+  span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+      modal.style.display = "none";
   }
+}
 
   function ticketMasterFetch(zip, city, state) {
     var url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=JK1bYROCje1BYtx3gGe1wVE6Z0kutcdA";
@@ -29,7 +35,7 @@ $(document).ready(function () {
       eventsOut = [];
       var json = JSON.parse(req.responseText);
       if (!json._embedded) {
-        err("try a different zip");
+        modal.style.display = "block";
         return false;
       }
       var events = json._embedded.events;
@@ -73,7 +79,6 @@ $(document).ready(function () {
       }
       // console.log(eventsOut);
       displayEvent(eventsOut);
- 
       var loadingAnim = document.createElement("div");
       loadingAnim.classList.add("lds-hourglass");
       loadingAnim.id = "loading-animation";
@@ -154,12 +159,14 @@ $(document).ready(function () {
     for (var i = 0; i < arrayRest.length; i++) {
       var newbutton = $("<button>");
       newbutton.addClass("btn btn-md btn-danger btn-block");
-      newbutton.text(arrayRest[i].name);
+      var string = (arrayRest[i].name + "<br/>Rating: " + arrayRest[i].rating);
+      newbutton.html(string);
       newbutton.attr("href", arrayRest[i].url);
       newbutton.attr("target", "_blank");
       newbutton.attr("id", "button")
       $("#button-view").append(newbutton);
     }
+    
   }
 
   function clear() {
