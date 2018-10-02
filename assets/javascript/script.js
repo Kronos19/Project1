@@ -3,6 +3,7 @@
 // form validate so that state is valid state code
 
 $(document).ready(function () {
+  
   var eventsOut = [];
   let arrayRest = [];
   var errMsgDisplay = document.querySelector("#err-msg");
@@ -72,7 +73,7 @@ $(document).ready(function () {
       }
       // console.log(eventsOut);
       displayEvent(eventsOut);
-      eventLinkButton(eventsOut);
+ 
       var loadingAnim = document.createElement("div");
       loadingAnim.classList.add("lds-hourglass");
       loadingAnim.id = "loading-animation";
