@@ -19,10 +19,6 @@ $(document).ready(function () {
     errMsgDisplay.textContent = string;
   }
 
-  
-
-  
-
   function ticketMasterFetch(zip, city, state) {
     var url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=JK1bYROCje1BYtx3gGe1wVE6Z0kutcdA";
     if (zip) url += "&postalCode=" + zip;
@@ -31,6 +27,7 @@ $(document).ready(function () {
     var req = new XMLHttpRequest();
     req.onload = () => {
       var json = JSON.parse(req.responseText);
+      console.log(json);
       if (!json._embedded) {
         err("try a different zip");
         return false;
@@ -74,7 +71,6 @@ $(document).ready(function () {
         }
 
       }
-      // console.log(eventsOut);
       displayEvent(eventsOut);
       yelp(city);
     }
@@ -110,6 +106,7 @@ $(document).ready(function () {
     }).then(function (response) {
       // console.log(response);
       let businessArr = response.businesses;
+      console.log(response);
 
       arrayRest = [];
 
@@ -141,6 +138,7 @@ $(document).ready(function () {
 
       var eventDiv = $("<div>");
       eventDiv.addClass("event");
+      eventDiv.attr('id', "events")
 
       var p = $("<p>").text("Name: " + name);
       var g = $("<p>").text("Genre: " + genre);
@@ -156,10 +154,11 @@ $(document).ready(function () {
   function restaurantButton(arrayRest) {
     $("#button-view").empty();
     for (var i = 0; i < arrayRest.length; i++) {
-      var newbutton = $("<button>");
+      var newbutton = $("<a>");
       newbutton.addClass("btn btn-md btn-danger btn-block");
       newbutton.text(arrayRest[i].name);
-      newbutton.append(arrayRest[i]);
+      newbutton.attr("href", arrayRest[i].url);
+      newbutton.attr("id", "button")
       $("#button-view").append(newbutton);
     }
   }
@@ -167,6 +166,7 @@ $(document).ready(function () {
 
   function clear() {
     $("#events-div").empty();
+    $("#button-view").empty();
     $("#zip").val("");
   }
 
