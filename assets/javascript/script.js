@@ -72,6 +72,7 @@ $(document).ready(function () {
 
       }
       displayEvent(eventsOut);
+      eventLinkButton(eventsOut);
       yelp(city);
     }
     req.open("GET", url, true);
@@ -80,7 +81,7 @@ $(document).ready(function () {
   }
 
   function yelp(arg) {
-    
+
     arg = arg || console.log("no restaurant");
 
     //query api
@@ -151,8 +152,21 @@ $(document).ready(function () {
       newbutton.addClass("btn btn-md btn-danger btn-block");
       newbutton.text(arrayRest[i].name);
       newbutton.attr("href", arrayRest[i].url);
+      newbutton.attr("target", "_blank");
       newbutton.attr("id", "button")
       $("#button-view").append(newbutton);
+    }
+  }
+
+  function eventLinkButton(array) {
+    for (var i = 0; i < array.length; i++) {
+      var newbutton = $("<a>");
+      newbutton.addClass("btn btn-md btn-danger btn-block");
+      newbutton.text("GET TICKETS!");
+      newbutton.attr("href", array[i].ticketURL);
+      newbutton.attr("target", "_blank");
+      newbutton.attr("id", "button")
+      $("#events-div").append(newbutton);
     }
   }
 
