@@ -1,0 +1,82 @@
+body {
+  background-color: lightblue;
+  color: black;
+}
+
+.container-fluid {
+  background-color: lightpink;
+  color: black;
+}
+
+.left-card {
+  background-color: lightgreen;
+  color: black;
+}
+
+.right-card {
+  background-color: lightyellow;
+  color: black;
+}
+
+.jumbotron {
+  background-color: blueviolet;
+  color:yellow;
+}
+
+@media only screen and (max-width: 576px) {
+
+body {
+  background-color: lightblue;
+  color: black;
+}
+
+.container-fluid {
+  background-color: green;
+  color: black;
+}
+
+.left-card {
+  background-color: orange;
+  color: black;
+}
+
+.right-card {
+  background-color: blue;
+  color: black;
+}
+
+.jumbotron {
+  background-color: aquamarine;
+  color:yellow;
+}
+
+}
+
+@media only screen and (max-width: 768px) {
+
+body {
+  background-color: royalblue;
+  color: black;
+}
+
+.container-fluid {
+  background-color: honeydew;
+  color: black;
+}
+
+.left-card {
+  background-color: bisque;
+  color: black;
+}
+
+.right-card {
+  background-color: slategrey;
+  color: black;
+}
+
+.jumbotron {
+  background-color: firebrick;
+  color: burlywood;
+}
+
+}
