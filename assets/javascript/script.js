@@ -25,6 +25,7 @@ $(document).ready(function () {
     if (state) url += "&state=" + state;
     var req = new XMLHttpRequest();
     req.onload = () => {
+      eventsOut = [];
       var json = JSON.parse(req.responseText);
       if (!json._embedded) {
         err("try a different zip");
@@ -72,6 +73,10 @@ $(document).ready(function () {
       // console.log(eventsOut);
       displayEvent(eventsOut);
       eventLinkButton(eventsOut);
+      var loadingAnim = document.createElement("div");
+      loadingAnim.classList.add("lds-hourglass");
+      loadingAnim.id = "loading-animation";
+      document.querySelector("#restaurants").appendChild(loadingAnim)
       yelp(city);
     }
     req.open("GET", url, true);
@@ -104,6 +109,8 @@ $(document).ready(function () {
         arrayRest.push(indivRest);
       };
       console.log(arrayRest);
+      var loadingAnim = document.querySelector("#loading-animation");
+      document.querySelector("#restaurants").removeChild(loadingAnim)
       restaurantButton(arrayRest);
     });
 
@@ -112,6 +119,9 @@ $(document).ready(function () {
 
   function displayEvent(array) {
     console.log(array)
+    var eventsDiv = $("#events-div");
+    eventsDiv.empty();
+    
     for (i = 0; i < array.length; i++) {
 
       var name = array[i].name;
@@ -128,7 +138,7 @@ $(document).ready(function () {
       var s = $("<p>").text("Start Date: " + startdate);
       eventDiv.append(p, g, s);
 
-      $("#events-div").append(eventDiv);
+      eventsDiv.append(eventDiv);
 
     }
 
