@@ -12,7 +12,6 @@ $(document).ready(function () {
     var zip = $("#zip").val().trim();
     var city = $("#city").val().trim();
     var state = $("#state").val().trim();
-    // have to pass in all three even if no value for any of them!!!
     ticketMasterFetch(zip, city, state);
   });
 
@@ -33,7 +32,6 @@ window.onclick = function(event) {
     var req = new XMLHttpRequest();
     req.onload = () => {
       var json = JSON.parse(req.responseText);
-      console.log(json);
       if (!json._embedded) {
         modal.style.display = "block";
         return false;
@@ -77,8 +75,8 @@ window.onclick = function(event) {
         }
 
       }
+      // console.log(eventsOut);
       displayEvent(eventsOut);
-      eventLinkButton(eventsOut);
       yelp(city);
     }
     req.open("GET", url, true);
@@ -89,28 +87,19 @@ window.onclick = function(event) {
   function yelp(arg) {
 
     arg = arg || console.log("no restaurant");
-
-    //query api
-    let queryURL = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=" + arg + "&radius=8046&limit=10";
-    //corsURL issue code fix
+    let queryURL = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=" + arg 
+      + "&radius=8046&limit=10";
     var corsURL = "https://cors-anywhere.herokuapp.com/" + queryURL;
-
     $.ajax({
       url: corsURL,
       method: "GET",
-
       headers: {
-        //my API
         'Authorization': "Bearer -fQflxBoof3K42D5NlSTEm1zb2Q4pYrNwqMIXOqoLAc2vw9W5KExghydPZmUeCQWOPFm5mRoQ9dYYIJHu1lz0_eTCuD0Aux8tZaVhM3XvD8x22mQaodNSGx5DVSuW3Yx"
       }
     }).then(function (response) {
       // console.log(response);
       let businessArr = response.businesses;
-      console.log(response);
-
       arrayRest = [];
-
-      //loop the array from yelp, take the properties needed and add to a new object, and loop them all into a new array
       for (let i = 0; i < businessArr.length; i++) {
         let businessObject = businessArr[i];
         let indivRest = {};
@@ -127,23 +116,25 @@ window.onclick = function(event) {
 
 
   function displayEvent(array) {
-    console.log(array)
     for (i = 0; i < array.length; i++) {
 
       var name = array[i].name;
       var startdate = array[i].startDate;
       var genre = array[i].genre;
 
-      // console.log(name)
-
       var eventDiv = $("<div>");
       eventDiv.addClass("event");
-      eventDiv.attr('id', "events")
 
       var p = $("<p>").text("Name: " + name);
       var g = $("<p>").text("Genre: " + genre);
       var s = $("<p>").text("Start Date: " + startdate);
-      eventDiv.append(p, g, s);
+      var eventbutton = $("<a>");
+      eventbutton.addClass("btn btn-md btn-danger btn-block");
+      eventbutton.text("GET TICKETS!");
+      eventbutton.attr("href", array[i].ticketURL);
+      eventbutton.attr("target", "_blank");
+      eventbutton.attr("id", "eventbutton")
+      eventDiv.append(p, g, s, eventbutton);
 
       $("#events-div").append(eventDiv);
 
@@ -154,7 +145,7 @@ window.onclick = function(event) {
   function restaurantButton(arrayRest) {
     $("#button-view").empty();
     for (var i = 0; i < arrayRest.length; i++) {
-      var newbutton = $("<a>");
+      var newbutton = $("<button>");
       newbutton.addClass("btn btn-md btn-danger btn-block");
       newbutton.text(arrayRest[i].name);
       newbutton.attr("href", arrayRest[i].url);
@@ -164,23 +155,11 @@ window.onclick = function(event) {
     }
   }
 
-  function eventLinkButton(array) {
-    for (var i = 0; i < array.length; i++) {
-      var newbutton = $("<a>");
-      newbutton.addClass("btn btn-md btn-danger btn-block");
-      newbutton.text("GET TICKETS!");
-      newbutton.attr("href", array[i].ticketURL);
-      newbutton.attr("target", "_blank");
-      newbutton.attr("id", "button")
-      $("#events-div").append(newbutton);
-    }
-  }
-
-
   function clear() {
     $("#events-div").empty();
-    $("#button-view").empty();
     $("#zip").val("");
+    $("#city").val("");
+    $("#state").val("");
   }
 
   $("#clearInput").on("click", clear);
