@@ -27,6 +27,7 @@ $(document).ready(function () {
     var req = new XMLHttpRequest();
     req.onload = () => {
       var json = JSON.parse(req.responseText);
+      console.log(json);
       if (!json._embedded) {
         err("try a different zip");
         return false;
@@ -70,7 +71,6 @@ $(document).ready(function () {
         }
 
       }
-      // console.log(eventsOut);
       displayEvent(eventsOut);
       yelp(city);
     }
@@ -79,16 +79,9 @@ $(document).ready(function () {
 
   }
 
-  function yelp(arg, arg2, arg3, arg4) {
-    //make arguements optional
-    //zip
-    arg = arg || console.log("no zip");
-    //location
-    arg2 = arg2 || console.log("no location");
-    //lat
-    arg3 = ((arg3 || console.log("no lat")) && (arg4 || console.log("no lon")));
-    //lon
-    arg4 = ((arg4 || console.log("no lon")) && (arg3 || console.log("no lat")));
+  function yelp(arg) {
+    
+    arg = arg || console.log("no restaurant");
 
     //query api
     let queryURL = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=" + arg + "&radius=8046&limit=10";
@@ -106,6 +99,7 @@ $(document).ready(function () {
     }).then(function (response) {
       // console.log(response);
       let businessArr = response.businesses;
+      console.log(response);
 
       arrayRest = [];
 
@@ -137,6 +131,7 @@ $(document).ready(function () {
 
       var eventDiv = $("<div>");
       eventDiv.addClass("event");
+      eventDiv.attr('id', "events")
 
       var p = $("<p>").text("Name: " + name);
       var g = $("<p>").text("Genre: " + genre);
@@ -152,10 +147,11 @@ $(document).ready(function () {
   function restaurantButton(arrayRest) {
     $("#button-view").empty();
     for (var i = 0; i < arrayRest.length; i++) {
-      var newbutton = $("<button>");
+      var newbutton = $("<a>");
       newbutton.addClass("btn btn-md btn-danger btn-block");
       newbutton.text(arrayRest[i].name);
-      newbutton.append(arrayRest[i]);
+      newbutton.attr("href", arrayRest[i].url);
+      newbutton.attr("id", "button")
       $("#button-view").append(newbutton);
     }
   }
@@ -163,6 +159,7 @@ $(document).ready(function () {
 
   function clear() {
     $("#events-div").empty();
+    $("#button-view").empty();
     $("#zip").val("");
   }
 
