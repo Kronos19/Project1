@@ -3,6 +3,7 @@
 // form validate so that state is valid state code
 
 $(document).ready(function () {
+  
   var eventsOut = [];
   let arrayRest = [];
   var modal = document.getElementById('myModal');
