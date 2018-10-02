@@ -5,7 +5,8 @@
 $(document).ready(function () {
   var eventsOut = [];
   let arrayRest = [];
-  var errMsgDisplay = document.querySelector("#err-msg");
+  var modal = document.getElementById('myModal');
+  var span = document.getElementsByClassName("close")[0];
   $("#userInput").on("click", function (event) {
     event.preventDefault();
     var zip = $("#zip").val().trim();
@@ -15,9 +16,14 @@ $(document).ready(function () {
     ticketMasterFetch(zip, city, state);
   });
 
-  function err(string) {
-    errMsgDisplay.textContent = string;
+  span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+      modal.style.display = "none";
   }
+}
 
   function ticketMasterFetch(zip, city, state) {
     var url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=JK1bYROCje1BYtx3gGe1wVE6Z0kutcdA";
@@ -29,7 +35,7 @@ $(document).ready(function () {
       var json = JSON.parse(req.responseText);
       console.log(json);
       if (!json._embedded) {
-        err("try a different zip");
+        modal.style.display = "block";
         return false;
       }
       var events = json._embedded.events;
@@ -72,6 +78,7 @@ $(document).ready(function () {
 
       }
       displayEvent(eventsOut);
+      eventLinkButton(eventsOut);
       yelp(city);
     }
     req.open("GET", url, true);
@@ -80,7 +87,7 @@ $(document).ready(function () {
   }
 
   function yelp(arg) {
-    
+
     arg = arg || console.log("no restaurant");
 
     //query api
@@ -151,8 +158,21 @@ $(document).ready(function () {
       newbutton.addClass("btn btn-md btn-danger btn-block");
       newbutton.text(arrayRest[i].name);
       newbutton.attr("href", arrayRest[i].url);
+      newbutton.attr("target", "_blank");
       newbutton.attr("id", "button")
       $("#button-view").append(newbutton);
+    }
+  }
+
+  function eventLinkButton(array) {
+    for (var i = 0; i < array.length; i++) {
+      var newbutton = $("<a>");
+      newbutton.addClass("btn btn-md btn-danger btn-block");
+      newbutton.text("GET TICKETS!");
+      newbutton.attr("href", array[i].ticketURL);
+      newbutton.attr("target", "_blank");
+      newbutton.attr("id", "button")
+      $("#events-div").append(newbutton);
     }
   }
 

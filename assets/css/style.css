@@ -10,7 +10,7 @@ body {
 }
 
 .lead {
-  color:#FFFAD5;
+  color: #FFFAD5;
   font-size: 300%;
   text-shadow: 1px 1px black
 }
@@ -30,50 +30,133 @@ body {
 }
 
 .event {
-  font-family:'Abril Fatface', cursive;; 
-  border: 20px; 
+  font-family: 'Abril Fatface', cursive;
+  ;
+  border: 20px;
   padding: 20px;
-  text-align: left
+  text-align: left;
+}
+
+/* modal */
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 768px) {
 
-body {
-  background-color: #E68646;
-  color: black;
+  body {
+    background-color: #E68646;
+    color: black;
+  }
+
+  .left-card {
+    background-color: #96526B;
+    color: black;
+  }
+
+  .right-card {
+    background-color: #EBAD60;
+    color: black;
+  }
+
+  .jumbotron {
+    background-color: #8BAB8D;
+  }
+
+  .display-4 {
+    color: #E68646;
+    font-size: 500%;
+    text-shadow: 1px 1px bisque
+  }
+
+  .lead {
+    color: #E68646;
+    font-size: 300%;
+    text-shadow: 1px 1px bisque
+  }
+
+  .event {
+    font-family: 'Abril Fatface', cursive;
+    ;
+    border: 20px;
+    padding: 20px;
+    text-align: left;
+  }
+
+
+/* Modal */
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-.left-card {
-  background-color: #96526B;
-  color: black;
-}
-
-.right-card {
-  background-color: #EBAD60;
-  color: black;
-}
-
-.jumbotron {
-  background-color: #8BAB8D;
-}
-
-.display-4 {
-  color: #E68646;
-  font-size: 500%;
-  text-shadow: 1px 1px bisque
-}
-
-.lead {
-  color: #E68646;
-  font-size: 300%;
-  text-shadow: 1px 1px bisque
-}
-
-.event {
-  font-family:'Abril Fatface', cursive;; 
-  border: 20px; 
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
-  text-align: left
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 }
