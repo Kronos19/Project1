@@ -135,7 +135,7 @@ window.onclick = function(event) {
 
       var name = array[i].name;
       var startDate = array[i].startDate;
-      var startTime = array[i].startTime;
+      var startTime = array[i].startTime ? array[i].startTime: "";
       var venue = array[i].venue;
       var genre = array[i].genre;
       var pic = array[i].imageURL;
