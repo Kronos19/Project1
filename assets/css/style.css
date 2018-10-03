@@ -84,6 +84,21 @@ body {
 /* end loading animation code */
 
 
+.right-card {
+  background-color: #FFD34E;
+  color: black;
+}
+
+
+.jumbotron {
+  background-color: #105B63;
+}
+
+.event {
+  font-family: 'Oxygen', sans-serif;
+  text-align: left;
+} */
+
 /* modal */
 
 /* The Modal (background) */
