@@ -78,6 +78,7 @@ window.onclick = function(event) {
 
       }
       // console.log(eventsOut);
+      $("#button-view").empty();
       displayEvent(eventsOut);
       var loadingAnim = document.createElement("div");
       loadingAnim.classList.add("lds-hourglass");
