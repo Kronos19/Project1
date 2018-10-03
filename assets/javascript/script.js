@@ -134,27 +134,53 @@ window.onclick = function(event) {
     for (i = 0; i < array.length; i++) {
 
       var name = array[i].name;
-      var startdate = array[i].startDate;
+      var startDate = array[i].startDate;
+      var startTime = array[i].startTime;
+      var venue = array[i].venue;
       var genre = array[i].genre;
-      var pic = array[i].imageURL
-
+      var pic = array[i].imageURL;
+      
+      // main container
       var eventDiv = $("<div>");
-      eventDiv.addClass("event");
+      eventDiv.addClass("row");
+      // eventDiv.addClass("event");
 
-      var p = $("<p>").text("Name: " + name);
-      var g = $("<p>").text("Genre: " + genre);
-      var s = $("<p>").text("Start Date: " + startdate);
-      var eventbutton = $("<a>")
-      eventbutton.addClass("btn btn-md btn-danger btn-block");
-      var string = ("<i class='fas fa-ticket-alt'></i>" + "&nbsp;&nbsp;" + "Get Tickets");
+      // build left partition
+      var leftPart = $("<div>");
+      leftPart.addClass("col-md-8");
+      // title display
+      var titleDisplay = $("<h3>").text(name);
+      // venue
+      var venueDisplay = $("<p>").text(venue);
+      //start date and time
+      var dateDisplay = $("<p>").text(startDate + " " + startTime);
+      //genre
+      var genreDisplay = $("<p>").text("Genre: " + genre);
+      //add contents to left part
+      leftPart.append(titleDisplay, venueDisplay, dateDisplay, genreDisplay);
+
+      // build right partition
+      var rightPart = $("<div>");
+      rightPart.addClass("col-md-4");
+      //image
+      var img = $("<img>");
+      img.attr("src", pic);
+      img.addClass("img-fluid");
+      // get tickets
+      var eventbutton = $("<a>");
+      var string = ("<i class='fas fa-ticket-alt'></i>" 
+        + "&nbsp;&nbsp;" + "Get Tickets");
       eventbutton.html(string);
       eventbutton.attr("href", array[i].ticketURL);
       eventbutton.attr("target", "_blank");
-      eventbutton.attr("id", "eventbutton")
+      eventbutton.attr("id", "eventbutton");
+      eventbutton.addClass("btn btn-md btn-danger btn-block");
+      //add contnets to right part
+      rightPart.append(img, eventbutton);
 
-
-      eventDiv.append(p, g, s, eventbutton);
-
+      //add right and left to event div
+      eventDiv.append(leftPart, rightPart);
+      // add to page
       eventsDiv.append(eventDiv);
 
     }
