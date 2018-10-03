@@ -125,9 +125,15 @@ body {
 }
 
 #button {
+  padding: 5px;
   height: auto;
   line-height: 1.5em;
 
+}
+
+#eventbutton {
+  padding: 5px;
+  height: auto;
 }
 
 @media only screen and (max-width: 768px) {
