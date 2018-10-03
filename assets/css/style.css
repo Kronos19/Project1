@@ -16,14 +16,15 @@ body {
 }
 
 .left-card {
-  
   color: black;
   width: 100%;
   margin-bottom: 10px;
 }
+
 .card-color {
   background-color: #FFD34E;
 }
+
 
 /* start loading animation code */
 /* credit https://loading.io/css/ */
@@ -124,9 +125,15 @@ body {
 }
 
 #button {
+  padding: 5px;
   height: auto;
   line-height: 1.5em;
 
+}
+
+#eventbutton {
+  padding: 5px;
+  height: auto;
 }
 
 @media only screen and (max-width: 768px) {

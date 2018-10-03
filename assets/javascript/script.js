@@ -12,6 +12,7 @@ $(document).ready(function () {
     event.preventDefault();
     var zip = $("#zip").val().trim();
     var city = $("#city").val().trim();
+
     var state = $("#state").val().trim();
     ticketMasterFetch(zip, city, state);
   });
@@ -34,6 +35,7 @@ window.onclick = function(event) {
     req.onload = () => {
       eventsOut = [];
       var json = JSON.parse(req.responseText);
+      console.log(json);
       if (!json._embedded) {
         modal.style.display = "block";
         return false;
@@ -134,6 +136,7 @@ window.onclick = function(event) {
       var name = array[i].name;
       var startdate = array[i].startDate;
       var genre = array[i].genre;
+      var pic = array[i].imageURL
 
       var eventDiv = $("<div>");
       eventDiv.addClass("event");
@@ -141,12 +144,15 @@ window.onclick = function(event) {
       var p = $("<p>").text("Name: " + name);
       var g = $("<p>").text("Genre: " + genre);
       var s = $("<p>").text("Start Date: " + startdate);
-      var eventbutton = $("<a>");
+      var eventbutton = $("<a>")
       eventbutton.addClass("btn btn-md btn-danger btn-block");
-      eventbutton.text("GET TICKETS!");
+      var string = ("<i class='fas fa-ticket-alt'></i>" + "&nbsp;&nbsp;" + "Get Tickets");
+      eventbutton.html(string);
       eventbutton.attr("href", array[i].ticketURL);
       eventbutton.attr("target", "_blank");
       eventbutton.attr("id", "eventbutton")
+
+
       eventDiv.append(p, g, s, eventbutton);
 
       eventsDiv.append(eventDiv);
@@ -158,13 +164,13 @@ window.onclick = function(event) {
   function restaurantButton(arrayRest) {
     $("#button-view").empty();
     for (var i = 0; i < arrayRest.length; i++) {
-      var newbutton = $("<button>");
+      var newbutton = $("<a>");
       newbutton.addClass("btn btn-md btn-danger btn-block");
-      var string = (arrayRest[i].name + "<br/>Rating: " + arrayRest[i].rating);
+      var string = ("<i class='fas fa-utensils'></i>" + "&nbsp;&nbsp;" +  arrayRest[i].name + "<br/>Rating: " + arrayRest[i].rating);
       newbutton.html(string);
       newbutton.attr("href", arrayRest[i].url);
       newbutton.attr("target", "_blank");
-      newbutton.attr("id", "button")
+      newbutton.attr("id", "button");
       $("#button-view").append(newbutton);
     }
     
@@ -172,6 +178,7 @@ window.onclick = function(event) {
 
   function clear() {
     $("#events-div").empty();
+    $("#button-view").empty();
     $("#zip").val("");
     $("#city").val("");
     $("#state").val("");
