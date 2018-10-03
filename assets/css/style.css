@@ -43,6 +43,12 @@ body {
   text-align: left;
 }
 
+/* to change the photo sizes in ticket area*/
+.img-fluid {
+  width: 100%;
+  height: auto;
+}
+
 /* start loading animation code */
 /* credit https://loading.io/css/ */
 .lds-hourglass {
