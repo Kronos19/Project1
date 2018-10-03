@@ -149,7 +149,7 @@ window.onclick = function(event) {
       var leftPart = $("<div>");
       leftPart.addClass("col-md-8");
       // title display
-      var titleDisplay = $("<h3>").text(name);
+      var titleDisplay = $("<h4>").text(name);
       // venue
       var venueDisplay = $("<p>").text(venue);
       //start date and time
