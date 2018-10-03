@@ -157,7 +157,7 @@ window.onclick = function(event) {
   function restaurantButton(arrayRest) {
     $("#button-view").empty();
     for (var i = 0; i < arrayRest.length; i++) {
-      var newbutton = $("<button>");
+      var newbutton = $("<a>");
       newbutton.addClass("btn btn-md btn-danger btn-block");
       var string = (arrayRest[i].name + "<br/>Rating: " + arrayRest[i].rating);
       newbutton.html(string);
