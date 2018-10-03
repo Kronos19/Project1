@@ -6,13 +6,15 @@ body {
 .display-4 {
   color: #FFFAD5;
   font-size: 500%;
-  text-shadow: 1px 1px black
+  text-shadow: 1px 1px black;
+  font-family: 'Kaushan Script', cursive;
 }
 
 .lead {
   color: #FFFAD5;
   font-size: 300%;
-  text-shadow: 1px 1px black
+  text-shadow: 1px 1px black;
+  font-family: 'Kaushan Script', cursive;
 }
 
 .left-card {
@@ -68,7 +70,7 @@ body {
 
 
 .right-card {
-  background-color: #DB9E36;
+  background-color: #FFD34E;
   color: black;
 }
 
@@ -77,8 +79,7 @@ body {
 }
 
 .event {
-  font-family: 'Abril Fatface', cursive;
-  ;
+  font-family: 'Oxygen', sans-serif;
   border: 20px;
   padding: 20px;
   text-align: left;
@@ -128,45 +129,47 @@ body {
   padding: 5px;
   height: auto;
   line-height: 1.5em;
-
+  font-family: 'Karla', sans-serif;
 }
 
 #eventbutton {
   padding: 5px;
   height: auto;
+  font-family: 'Karla', sans-serif;
 }
 
 @media only screen and (max-width: 768px) {
 
   body {
-    background-color: #E68646;
+    background-color: #FFFAD5;
     color: black;
   }
 
   .left-card {
-    background-color: #96526B;
     color: black;
   }
 
   .right-card {
-    background-color: #EBAD60;
+    background-color: #FFD34E;
     color: black;
   }
 
   .jumbotron {
-    background-color: #8BAB8D;
+    background-color: #105B63;
   }
 
   .display-4 {
-    color: #E68646;
+    color:#FFFAD5;
     font-size: 500%;
-    text-shadow: 1px 1px bisque
+    text-shadow: 1px 1px black;
+    font-family: 'Kaushan Script', cursive;
   }
 
   .lead {
-    color: #E68646;
+    color: #FFFAD5;
     font-size: 300%;
-    text-shadow: 1px 1px bisque
+    text-shadow: 1px 1px black;
+    font-family: 'Kaushan Script', cursive;
   }
 
   .event {
