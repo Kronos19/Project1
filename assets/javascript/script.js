@@ -142,7 +142,7 @@ window.onclick = function(event) {
       
       // main container
       var eventDiv = $("<div>");
-      eventDiv.addClass("row");
+      eventDiv.addClass("row event");
       // eventDiv.addClass("event");
 
       // build left partition
